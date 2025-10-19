@@ -43,16 +43,15 @@ public class HomePage {
     public void selectDates(String checkin, String checkout) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
-        // افتحي الكاليندر مرة واحدة
+      
         wait.until(ExpectedConditions.visibilityOfElementLocated(calender));
         driver.findElement(calender).click();
 
-        // اختاري check-in من الإكسل زي ما هو
         By checkinLocator = By.cssSelector("span[data-date='" + checkin + "']");
         wait.until(ExpectedConditions.elementToBeClickable(checkinLocator));
         driver.findElement(checkinLocator).click();
 
-        // اختاري check-out من الإكسل زي ما هو
+     
         By checkoutLocator = By.cssSelector("span[data-date='" + checkout + "']");
         wait.until(ExpectedConditions.elementToBeClickable(checkoutLocator));
         driver.findElement(checkoutLocator).click();
@@ -69,27 +68,27 @@ public class HomePage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
       //  System.out.println("currnet URL" + driver.getCurrentUrl());
-        for (int i = 0; i < 15; i++) { // جربي 15 مرة scroll
+        for (int i = 0; i < 15; i++) { 
             try {
-                // لو العنصر ظهر في الـ DOM
+             
                 WebElement element = driver.findElement(
                         By.xpath("//div[@data-testid='title' and contains(text(),'" + hotelName + "')]")
                 );
 
-                // scroll للعنصر
+                
                 js.executeScript("arguments[0].scrollIntoView(true);", element);
 
-                // اتأكد إنه clickable
+               
                 wait.until(ExpectedConditions.elementToBeClickable(element));
                 element.click();
               //  System.out.println("✅ Found and clicked hotel: " + hotelName);
                 return;
 
             } catch (Exception e) {
-                // لو مش لاقيه → Scroll لتحت 800px
+               
                 js.executeScript("window.scrollBy(0,800)");
                 try {
-                    Thread.sleep(1500); // سيب فرصة للصفحة تحمّل فنادق جديدة
+                    Thread.sleep(1500); 
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
